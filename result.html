@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Calculator</title>
+</head>
+<body>
+    <form onsubmit="event.preventDefault()">
+        <label for="ansUrl">Enter the Answer Sheet url: </label>
+        <input type="text" name="url" id="ansUrl">
+
+        <button onclick="getResult()">Submit</button>
+    </form>
+
+    <script src="./tcs-marks-calc.js"></script>
+    <script>
+        async function getResult() {
+            const sheetUrl = document.querySelector('#ansUrl');
+            const res = await fetch(sheetUrl.value)
+            console.log(res)
+            return res
+        }
+
+    </script>
+</body>
+</html>

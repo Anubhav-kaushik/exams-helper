@@ -1,0 +1,36 @@
+<main>
+    <link rel="stylesheet" href="style.css">
+    <div class="result-summary">
+        <div class="results grid-flow" data-spacing="large">
+
+            <h1 class="section-title">Your Result</h1>
+            <p class="result-score"><span>{{total-marks-obtained}}</span> of {{out-of-total}}</p>
+
+            <div class="grid-flow">
+                <p class="result-rank">Great</p>
+                <p>You scored higher than {{percentile}}% of the people who have taken these tests.</p>
+            </div>
+
+        </div>
+
+        <div class="summary grid-flow" data-spacing="large">
+
+            <h2 class="section-title">Summary</h2>
+
+            <div class="grid-flow">
+                <div class="summary-item" data-item-type="accent-1">
+                    <div class="flex-group">
+                        <svg class="summary-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                            viewBox="0 0 20 20">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"
+                                d="M10.833 8.333V2.5l-6.666 9.167h5V17.5l6.666-9.167h-5Z" />
+                        </svg>
+                        <h3 class="summary-item-title">{{subject}}</h3>
+                    </div>
+                    <p class="summary-score"><span>{{subject-marks-obtained}}</span> / {{out-of-subject}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
