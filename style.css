@@ -2,7 +2,7 @@
   font-family: 'HankenGrotesk';
   font-display: swap;
   font-weight: 100 900;
-  src: url('assets/fonts/HankenGrotesk-VariableFont_wght.ttf') 
+  src: url('https://anubhav-kaushik.github.io/exams-helper/assets/fonts/HankenGrotesk-VariableFont_wght.ttf') 
        format('truetype');
 }
 
@@ -36,9 +36,11 @@
       hsl(var(--clr-secondary-hsl-500), 0));
 
   --clr-accent-1: 0, 100%, 67%;
-  --clr-accent-2: 39, 100%, 56%;
-  --clr-accent-3: 166, 100%, 37%;
-  --clr-accent-4: 234, 85%, 45%;
+  --clr-accent-2: 60, 100%, 56%;
+  --clr-accent-3: 120, 100%, 37%;
+  --clr-accent-4: 180, 85%, 45%;
+  --clr-accent-5: 240, 85%, 45%;
+  --clr-accent-6: 360, 85%, 45%;
 
   --font-family-default: 'HankenGrotesk', sans-serif;
 
@@ -122,18 +124,27 @@ body {
   background: var(--gradient-primary);
 }
 
+.main-info-pnl {
+  background-color: transparent !important;
+  border: none !important;
+  margin: auto !important;
+  padding: 10px !important;
+  height: 100vh !important;
+  width: 100vw !important;
+}
+
 .result-summary {
   --padding: 2.5rem;
   --border-radius: 2rem;
 
-  max-width: 46rem;
+  max-width: 60rem;
   display: grid;
+  margin: auto;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 900px) {
   .result-summary {
-    margin-inline: 1rem;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 300px auto;
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: .5rem 1rem 3rem 
@@ -214,6 +225,14 @@ body {
 }
 .summary-item[data-item-type="accent-4"] {
   --item-color: var(--clr-accent-4);
+}
+
+.summary-item[data-item-type="accent-5"] {
+  --item-color: var(--clr-accent-5);
+}
+
+.summary-item[data-item-type="accent-6"] {
+  --item-color: var(--clr-accent-6);
 }
 
 .summary-score {
