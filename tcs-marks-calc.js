@@ -87,7 +87,7 @@ function createSummaryItem(subjectName, subjectMarksDetails, seq = 1) {
 }
 
 function createFinalScoreBlock(finalScore) {
-    let content = `<main> <link rel="stylesheet" href="https://anubhav-kaushik.github.io/exams-helper/style.css"> <div class="result-summary"> <div class="results grid-flow" data-spacing="large"> <h1 class="section-title">Your Result</h1> <p class="result-score"><span>{{total-marks-obtained}}</span> of {{out-of-total}}</p> <div class="grid-flow"> <p class="result-rank">Great</p> </div> </div> <div class="summary grid-flow" data-spacing="large"> <h2 class="section-title">Summary</h2> <div class="grid-flow">`
+    let content = `<main> <link rel="stylesheet" href="https://anubhav-kaushik.github.io/marksCalc/style.css"> <div class="result-summary"> <div class="results grid-flow" data-spacing="large"> <h1 class="section-title">Your Result</h1> <p class="result-score"><span>{{total-marks-obtained}}</span> of {{out-of-total}}</p> <div class="grid-flow"> <p class="result-rank">Great</p> </div> </div> <div class="summary grid-flow" data-spacing="large"> <h2 class="section-title">Summary</h2> <div class="grid-flow">`
 
     const totalMarksObtained = finalScore['Marks Obtained'];
     const outOfTotal = finalScore['Out of'];
