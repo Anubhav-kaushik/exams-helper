@@ -253,6 +253,18 @@ body {
   background: hsl(var(--clr-mark-correct), .1) !important;
 }
 
+.questionRowTbl td {
+  font-size: 1em !important;
+}
+
+.rightAns {
+  font-size: 1.5em !important;
+}
+
+.menu-tbl {
+  color: white !important;
+}
+
 [data-mark="correct"] .menu-tbl {
   background: hsl(var(--clr-mark-correct), .8) !important;
 }
