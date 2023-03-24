@@ -249,26 +249,26 @@ body {
   color: var(--clr-neutral-700);
 }
 
-[data-mark="correct"] table:nth-child(1) {
-  background: hsl(var(--clr-mark-correct), .2);
+[data-mark="correct"] .questionRowTbl {
+  background: hsl(var(--clr-mark-correct), .2) !important;
 }
 
-[data-mark="correct"] table:nth-child(2) {
-  background: hsl(var(--clr-mark-correct), 1);
+[data-mark="correct"] .menu-tbl {
+  background: hsl(var(--clr-mark-correct), 1) !important;
 }
 
-[data-mark="incorrect"] table:nth-child(1) {
-  background: hsl(var(--clr-mark-incorrect), .2);
+[data-mark="incorrect"] .questionRowTbl {
+  background: hsl(var(--clr-mark-incorrect), .2) !important;
 }
 
-[data-mark="incorrect"] table:nth-child(2) {
-  background: hsl(var(--clr-mark-incorrect), 1);
+[data-mark="incorrect"] .menu-tbl {
+  background: hsl(var(--clr-mark-incorrect), 1) !important;
 }
 
-[data-mark="NA"] table:nth-child(1) {
-  background: hsl(var(--clr-mark-na), .2);
+[data-mark="NA"] .questionRowTbl {
+  background: hsl(var(--clr-mark-na), .2) !important;
 }
 
-[data-mark="NA"] table:nth-child(2) {
-  background: hsl(var(--clr-mark-na), 1);
+[data-mark="NA"] .menu-tbl {
+  background: hsl(var(--clr-mark-na), 1) !important;
 }
