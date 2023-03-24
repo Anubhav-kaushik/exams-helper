@@ -1,0 +1,1 @@
+markingScheme={tier2:{correct:3,incorrect:1},tier1:{correct:2,incorrect:.5}},result=main(page,".section-cntnr",".section-lbl",".rw",markingScheme,"{{examStage}}");console.table(result[1]),addResultToPage(result[1]);//end

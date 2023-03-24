@@ -134,8 +134,8 @@ body {
   border: none !important;
   margin: auto !important;
   padding: 10px !important;
-  height: 100vh !important;
-  width: 100vw !important;
+  min-height: 100vh !important;
+  min-width: 100vw !important;
 }
 
 .result-summary {
@@ -257,7 +257,7 @@ body {
   font-size: 1em !important;
 }
 
-.rightAns {
+td.rightAns {
   font-size: 1.5em !important;
 }
 

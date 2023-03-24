@@ -194,7 +194,6 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
     let skipSectionName = '';
     if (examStage == 'tier2') {
         skipSectionName = allSectionsNames[allSectionsNames.length - 1]
-        console.log(skipSectionName)
     }
     subjectwiseResult['Total'] = findTotal(subjectwiseResult, skipSectionName);
 

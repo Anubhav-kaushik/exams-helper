@@ -1,0 +1,40 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+.main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* background: hsla(242, 100%, 50%, 0.104); */
+}
+
+.main * {
+    padding: 0.5em;
+}
+
+.main fieldset {
+    background: hsla(119, 100%, 50%, 0.104);
+    margin-block: 0.5em;
+    border-radius: 0.5em;
+    box-shadow: 0.25em 0.25em gray;
+}
+
+.main fieldset legend {
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+.main fieldset button {
+    display: block;
+    margin-inline: auto;
+    margin-top: 1em;
+}

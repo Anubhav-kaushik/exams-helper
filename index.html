@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC Marks Calculator</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <section class="main">
+        <fieldset>
+            <fieldset>
+                <legend>Exam Names</legend>
+                <p for="exam">SSC CGL / SSC CPO / SSC CHSL / SSC STENO / SSC MTS</p>
+            </fieldset>
+
+            <fieldset id="exam-stage-select">
+                <legend>Choose Exam Stage:</legend>
+
+                <div>
+                    <input type="radio" id="tier1" name="stage" value="tier1" data-status="selected" checked>
+                    <label for="tier1">Tier 1</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="tier2" name="stage" value="tier2">
+                    <label for="tier2">Tier 2</label>
+                </div>
+                </select>
+            </fieldset>
+
+            <button onclick="getCode()" id="codeBtn">Copy Code</button>
+        </fieldset>
+    </section>
+
+    <script>
+        function sleep(seconds) {
+            return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+        }
+
+        const examStage = document.querySelectorAll('input[name="stage"]');
+
+        function resetRadioButtons(btns) {
+            for (let btn of btns) {
+                btn.checked = false;
+                btn.setAttribute('data-status', 'unselected');
+            }
+        }
+
+        resetRadioButtons(examStage)
+
+        for (let stage of examStage) {
+            stage.addEventListener('change', function () {
+                resetRadioButtons(examStage)
+
+                stage.checked = true;
+                stage.setAttribute('data-status', 'selected');
+            })
+        }
+
+        async function getFile(filepath) {
+            const fileUrl = `${filepath}` // provide file location
+
+            const fileText = fetch(fileUrl)
+                .then(r => r.text())
+                .then(text => {
+                    return text
+                });
+
+            async function getText() {
+                const text = await fileText;
+                return text;
+            }
+
+            return getText()
+        }
+
+        async function getCode() {
+            let codeGeneral = await getFile('code-general.txt');
+            let codeExec = await getFile('code-execution.txt');
+
+            const stage = document.querySelector('input[name="stage"][data-status="selected"]');
+
+            codeExec = codeExec.replace('{{examStage}}', stage.value);
+
+            const code = codeGeneral + "\n" + codeExec;
+
+            const btn = document.querySelector('#codeBtn');
+
+            navigator.clipboard.writeText(code).then(async function () {
+                console.log('Copying to clipboard was successful!');
+                console.log(code);
+
+                btn.innerHTML = 'Copied to clipboard!';
+                btn.disabled = true;
+
+                await sleep(3);
+
+                resetRadioButtons(examStage)
+                btn.innerHTML = 'Copy Code';
+                btn.disabled = false;
+
+            }, function (err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
+</body>
+
+</html>
