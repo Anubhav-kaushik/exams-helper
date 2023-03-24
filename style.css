@@ -42,6 +42,11 @@
   --clr-accent-5: 240, 85%, 45%;
   --clr-accent-6: 360, 85%, 45%;
 
+  --clr-mark-correct: 120, 100%, 37%;
+  --clr-mark-incorrect: 0, 100%, 67%;
+  --clr-mark-na: 240, 85%, 45%;
+
+
   --font-family-default: 'HankenGrotesk', sans-serif;
 
   --fw-regular: 500;
@@ -242,4 +247,28 @@ body {
 
 .summary-score span {
   color: var(--clr-neutral-700);
+}
+
+[data-mark="correct"] table:nth-child(1) {
+  background: hsl(var(--clr-mark-correct), .2);
+}
+
+[data-mark="correct"] table:nth-child(2) {
+  background: hsl(var(--clr-mark-correct), 1);
+}
+
+[data-mark="incorrect"] table:nth-child(1) {
+  background: hsl(var(--clr-mark-incorrect), .2);
+}
+
+[data-mark="incorrect"] table:nth-child(2) {
+  background: hsl(var(--clr-mark-incorrect), 1);
+}
+
+[data-mark="NA"] table:nth-child(1) {
+  background: hsl(var(--clr-mark-na), .2);
+}
+
+[data-mark="NA"] table:nth-child(2) {
+  background: hsl(var(--clr-mark-na), 1);
 }

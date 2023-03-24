@@ -123,14 +123,14 @@ function addResultToPage(result, infoContainerSelector = ".main-info-pnl") {
     pageBody.innerHTML = getFinalTemplate(result)
 }
 
-function paintQues(ques, category) {
-    const colors = {
-        correct: 'linear-gradient(90deg, white, rgba(0,255,0, 0.2), rgb(0, 255, 0))',
-        incorrect: 'linear-gradient(90deg, white, rgba(255,0,0, 0.2), rgb(255, 0, 0))',
-        notAttempted: 'linear-gradient(90deg, white, rgba(0,0,255, 0.2), rgb(0, 0, 255))'
+function markQues(ques, category) {
+    const marks = {
+        correct: 'correct',
+        incorrect: 'incorrect',
+        notAttempted: 'NA'
     }
 
-    ques.style.background = colors[category]
+    ques.setAttribute('data-mark', marks[category])
 }
 
 function getCandidateInfo(candidateInfoBlock) {
@@ -166,16 +166,16 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
 
             if (choosenOption == '-') {
                 notAttempted += 1
-                paintQues(quesRow, 'notAttempted')
+                markQues(quesRow, 'notAttempted')
                 continue
             }
 
             if (compareOptions(rightOption, choosenOption)) {
                 correct += 1
-                paintQues(quesRow, 'correct')
+                markQues(quesRow, 'correct')
             } else {
                 incorrect += 1
-                paintQues(quesRow, 'incorrect')
+                markQues(quesRow, 'incorrect')
             }
         }
 
