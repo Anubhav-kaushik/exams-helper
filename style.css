@@ -249,26 +249,26 @@ body {
   color: var(--clr-neutral-700);
 }
 
-[data-mark="correct"] .questionRowTbl {
-  background: hsl(var(--clr-mark-correct), .2) !important;
+[data-mark="correct"] {
+  background: hsl(var(--clr-mark-correct), .1) !important;
 }
 
 [data-mark="correct"] .menu-tbl {
-  background: hsl(var(--clr-mark-correct), 1) !important;
+  background: hsl(var(--clr-mark-correct), .8) !important;
 }
 
-[data-mark="incorrect"] .questionRowTbl {
-  background: hsl(var(--clr-mark-incorrect), .2) !important;
+[data-mark="incorrect"] {
+  background: hsl(var(--clr-mark-incorrect), .1) !important;
 }
 
 [data-mark="incorrect"] .menu-tbl {
-  background: hsl(var(--clr-mark-incorrect), 1) !important;
+  background: hsl(var(--clr-mark-incorrect), .8) !important;
 }
 
-[data-mark="NA"] .questionRowTbl {
-  background: hsl(var(--clr-mark-na), .2) !important;
+[data-mark="NA"] {
+  background: hsl(var(--clr-mark-na), .1) !important;
 }
 
 [data-mark="NA"] .menu-tbl {
-  background: hsl(var(--clr-mark-na), 1) !important;
+  background: hsl(var(--clr-mark-na), .8) !important;
 }
