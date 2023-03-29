@@ -7,34 +7,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSC Marks Calculator</title>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
+    <header>
+        <p>
+            created by <span id="creator" class="handwritten">Anubhav Kaushik</span>
+        </p>
+    </header>
     <section class="main">
-        <fieldset>
-            <fieldset>
-                <legend>Exam Names</legend>
+        <div class="col" id="explanationVideo">
+            <iframe width="auto" height="auto" src="https://www.youtube.com/embed/g0hov5SA3zQ"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+        </div>
+        
+        <div class="col" id="inputForm">
+            <div>
+                <!-- <legend>Exam Names</legend> -->
                 <p for="exam">SSC CGL / SSC CPO / SSC CHSL / SSC STENO / SSC MTS</p>
-            </fieldset>
+            </div>
 
-            <fieldset id="exam-stage-select">
+            <div id="exam-stage-select">
                 <legend>Choose Exam Stage:</legend>
 
-                <div>
+                <div id="stage-radio-block">
                     <input type="radio" id="tier1" name="stage" value="tier1" data-status="selected" checked>
                     <label for="tier1">Tier 1</label>
-                </div>
-
-                <div>
                     <input type="radio" id="tier2" name="stage" value="tier2">
                     <label for="tier2">Tier 2</label>
                 </div>
                 </select>
-            </fieldset>
+            </div>
 
-            <button onclick="getCode()" id="codeBtn">Copy Code</button>
-        </fieldset>
+            <button onclick="getCode()" id="codeBtn" type="submit" class="btn btn-primary">Copy Code</button>
+        </div>
     </section>
 
     <script>
@@ -53,12 +63,16 @@
 
         resetRadioButtons(examStage)
 
+        const btn = document.querySelector('#codeBtn');
+        btn.disabled = true;
+
         for (let stage of examStage) {
             stage.addEventListener('change', function () {
                 resetRadioButtons(examStage)
 
                 stage.checked = true;
                 stage.setAttribute('data-status', 'selected');
+                btn.disabled = false;
             })
         }
 
@@ -92,21 +106,22 @@
             const btn = document.querySelector('#codeBtn');
 
             navigator.clipboard.writeText(code).then(async function () {
-                console.log('Copying to clipboard was successful!');
-                console.log(code);
+                    console.log('Copying to clipboard was successful!');
+                    console.log(code);
 
-                btn.innerHTML = 'Copied to clipboard!';
-                btn.disabled = true;
+                    btn.innerHTML = 'Copied to clipboard!';
+                    btn.disabled = true;
 
-                await sleep(3);
+                    await sleep(3);
 
-                resetRadioButtons(examStage)
-                btn.innerHTML = 'Copy Code';
-                btn.disabled = false;
+                    resetRadioButtons(examStage)
+                    btn.innerHTML = 'Copy Code';
+                    btn.disabled = false;
 
-            }, function (err) {
-                console.error('Could not copy text: ', err);
-            });
+                },
+                function (err) {
+                    console.error('Could not copy text: ', err);
+                });
         }
     </script>
 </body>

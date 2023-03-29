@@ -1,40 +1,139 @@
-* {
-    padding: 0;
-    margin: 0;
+:root {
+    --bg-color-1: #0F1108;
+    --bg-color-2: #7D7ABC;
+    --highlight-color-1: #6457A6;
+    --highlight-color-2: #16DB93;
+
+    --text-color-1: #FCF7F8;
+
+    --font-family-default: 'HankenGrotesk', sans-serif;
 }
 
-button {
-    cursor: pointer;
+@font-face {
+    font-family: 'HankenGrotesk';
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('assets/fonts/HankenGrotesk-VariableFont_wght.ttf') 
+         format('truetype');
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap');
+
+body {
+    overflow-x: hidden;
+    font-family: var(--font-family-default);
+    background: var(--bg-color-1, black);
+    color: var(--text-color-1);
+}
+
+header {
+    text-align: right;
+    padding: 1em;
+    background: var(--bg-color-1, black);
+}
+
+.handwritten {
+    font-family: 'Delicious Handrawn', cursive;
+}
+
+#creator {
+    font-size: 1.5rem;
 }
 
 .main {
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1em;
+    flex-wrap: wrap;
 
-    /* background: hsla(242, 100%, 50%, 0.104); */
+    padding: 0.5em 1em;
+    overflow-x: hidden;
+
+    color: hsla(0, 0%, 9%, 0.8);
 }
 
 .main * {
     padding: 0.5em;
 }
 
-.main fieldset {
-    background: hsla(119, 100%, 50%, 0.104);
-    margin-block: 0.5em;
-    border-radius: 0.5em;
-    box-shadow: 0.25em 0.25em gray;
+#inputForm {
+    max-width: 400px;
+    min-width: 300px;
 }
 
-.main fieldset legend {
+#inputForm {
+    background: hsl(0, 0%, 99%);
+    margin-block: 0.25em;
+    border-radius: 0.5em;
+    /* box-shadow: 0.25em 0.25em gray; */
+    border: 2px solid black;
+}
+
+#inputForm>div:first-child {
+    background: var(--highlight-color-1);
+    color: var(--text-color-1);
+    margin-block: 0.25em;
+    border-radius: 0.5em;
+}
+
+#inputForm>div:first-child p {
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.main div legend {
     font-weight: bold;
     font-size: 1.25em;
+    margin-block: 0;
 }
 
-.main fieldset button {
+.main button {
     display: block;
     margin-inline: auto;
     margin-top: 1em;
+    background-color: var(--bg-color-2);
+    border-color: var(--highlight-color-1);
+}
+
+.main button:hover {
+    background-color: var(--highlight-color-1);
+}
+
+.main button:disabled {
+    opacity: 0.2;
+    background-color: var(--bg-color-2);
+    border-color: var(--highlight-color-1);
+}
+
+#explanationVideo {
+    width: 100%;
+    max-width: 700px;
+}
+
+#explanationVideo iframe {
+    width: 100%;
+    min-width: 500px;
+    aspect-ratio: 560/315;
+    margin-inline: auto;
+}
+
+#stage-radio-block input[type="radio"] {
+    display: none;
+}
+
+#stage-radio-block label {
+    border: 2px solid var(--highlight-color-2);
+    padding: 0.5em 2em;
+    margin-inline-end: 1em;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#stage-radio-block input[type="radio"]:checked+label {
+    background-color: var(--highlight-color-2, springgreen);
+    color: white;
 }
