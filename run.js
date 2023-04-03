@@ -50,6 +50,5 @@ async function run(tier) {
         'Quiz': createQuiz(result['answerKeyDict'], result['candidateInfo']['Exam Name'])
     }
 
-    addTabs(finalData, '#tabs-widget-1 .tabs', '#tabs-widget-1 .tabs-content')
-
+    addTabs(finalData, '.tabs-widget .tabs', '.tabs-widget .tabs-content')
 }
