@@ -11,7 +11,7 @@ function addStyleSheets(styles) {
 }
 
 function addScripts(scripts) {
-    const body = document.querySelector('body');
+    const body = document.querySelector('head');
 
     for (let script of scripts) {
         const scriptEl = document.createElement('script');
