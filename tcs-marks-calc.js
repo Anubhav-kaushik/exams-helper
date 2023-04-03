@@ -98,7 +98,7 @@ function createSummaryItem(subjectName, subjectMarksDetails, seq = 1) {
 }
 
 function createFinalScoreBlock(finalScore) {
-    let content = `<main> <link rel="stylesheet" href="https://anubhav-kaushik.github.io/marksCalc/style.css"> <div class="result-summary"> <div class="results grid-flow" data-spacing="large"> <h1 class="section-title">Your Result</h1> <p class="result-score"><span>{{total-marks-obtained}}</span> of {{out-of-total}}</p> <div class="grid-flow"> <p class="result-rank">Great</p> </div> </div> <div class="summary grid-flow" data-spacing="large"> <h2 class="section-title">Summary</h2> <div class="grid-flow">`
+    let content = `<div class="result-summary"> <div class="results grid-flow" data-spacing="large"> <h1 class="section-title">Your Result</h1> <p class="result-score"><span>{{total-marks-obtained}}</span> of {{out-of-total}}</p> <div class="grid-flow"> <p class="result-rank">Great</p> </div> </div> <div class="summary grid-flow" data-spacing="large"> <h2 class="section-title">Summary</h2> <div class="grid-flow">`
 
     const totalMarksObtained = finalScore['Marks Obtained'];
     const outOfTotal = finalScore['Out of'];
@@ -112,19 +112,24 @@ function createFinalScoreBlock(finalScore) {
 function getScoreCardHTML(result) {
     let firstBlock = createFinalScoreBlock(result['Total']);
 
-    let n = 0;
+    let n = 1;
     for (const subjectName in result) {
         if (subjectName == 'Total') {
             continue;
         }
-        n += 1
+       
         const item = createSummaryItem(subjectName, result[subjectName], n)
         firstBlock += item;
+
+        n++;
     }
 
-    firstBlock += `</div> </div> </div></main>`
+    firstBlock += `</div> </div> </div>`
 
-    return firstBlock
+    const finalBlock = document.createElement('div');
+    finalBlock.innerHTML = firstBlock;
+
+    return finalBlock
 }
 
 function addResultToPage(result, infoContainerSelector = ".main-info-pnl") {

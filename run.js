@@ -31,6 +31,7 @@ const scripts = [
 const styleSheets = [
     'https://anubhav-kaushik.github.io/tab-addons/widget-tab-type.css',
     'https://anubhav-kaushik.github.io/quiz-creator/css/quiz-style.css',
+    'https://anubhav-kaushik.github.io/marksCalc/style.css',
 ]
 
 addStyleSheets(styleSheets);
