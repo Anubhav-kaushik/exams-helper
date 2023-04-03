@@ -193,7 +193,7 @@ function getQuestionDetails(quesRow) {
 
     const correct = quesRow.querySelector('.rightAns');
     let cText = correct.innerHTML;
-    cText = cText.replace(/(\d*)([^\w]*)/, '');
+    cText = cText.replace(/(\d*)([^\w])(\s)/, '');
     quesDetails['correctOption'] = cText;
 
     const others = quesRow.querySelectorAll('.wrngAns');
