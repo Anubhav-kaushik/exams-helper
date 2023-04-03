@@ -1,4 +1,4 @@
-function addStyleSheets(styles) {
+async function addStyleSheets(styles) {
     const head = document.querySelector('head');
 
     for (let style of styles) {
@@ -10,7 +10,7 @@ function addStyleSheets(styles) {
     }
 }
 
-function addScripts(scripts) {
+async function addScripts(scripts) {
     const body = document.querySelector('head');
 
     for (let script of scripts) {
@@ -33,21 +33,25 @@ const styleSheets = [
     'https://anubhav-kaushik.github.io/quiz-creator/css/quiz-style.css',
 ]
 
-addStyleSheets(styleSheets);
-addScripts(scripts);
+await addStyleSheets(styleSheets);
+await addScripts(scripts);
 
-const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, 'tier1');
-console.table(result['scoreCard']);
+async function run() {
+    const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, 'tier1');
+    console.table(result['scoreCard']);
 
-const mainBody = document.querySelector('body');
-mainBody.innerHTML = initialTabBlock().outerHTML;
+    const mainBody = document.querySelector('body');
+    mainBody.innerHTML = initialTabBlock().outerHTML;
 
-const finalData = {
-    'Candidate Info': result['candidateInfo'],
-    'Score Card': result['scoreCardHtml'],
-    'Answer Key': result['answerKeyHtml'],
-    'Quiz': createQuiz(result['answerKeyDict'], result['candidateInfo']['Exam Name'])
+    const finalData = {
+        'Candidate Info': result['candidateInfo'],
+        'Score Card': result['scoreCardHtml'],
+        'Answer Key': result['answerKeyHtml'],
+        'Quiz': createQuiz(result['answerKeyDict'], result['candidateInfo']['Exam Name'])
+    }
+
+    addTabs(finalData, '#tabs-widget-1 .tabs', '#tabs-widget-1 .tabs-content')
+
 }
 
-addTabs(finalData, '#tabs-widget-1 .tabs', '#tabs-widget-1 .tabs-content')
-
+run()
