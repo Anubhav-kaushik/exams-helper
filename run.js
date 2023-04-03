@@ -1,4 +1,4 @@
-async function addStyleSheets(styles) {
+function addStyleSheets(styles) {
     const head = document.querySelector('head');
 
     for (let style of styles) {
@@ -10,7 +10,7 @@ async function addStyleSheets(styles) {
     }
 }
 
-async function addScripts(scripts) {
+function addScripts(scripts) {
     const body = document.querySelector('head');
 
     for (let script of scripts) {
@@ -36,7 +36,7 @@ const styleSheets = [
 addStyleSheets(styleSheets);
 addScripts(scripts);
 
-async function run(tier) {
+function run(tier) {
     const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, tier);
     console.table(result['scoreCard']);
 
