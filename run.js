@@ -33,11 +33,11 @@ const styleSheets = [
     'https://anubhav-kaushik.github.io/quiz-creator/css/quiz-style.css',
 ]
 
-await addStyleSheets(styleSheets);
-await addScripts(scripts);
+addStyleSheets(styleSheets);
+addScripts(scripts);
 
-async function run() {
-    const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, 'tier1');
+async function run(tier) {
+    const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, tier);
     console.table(result['scoreCard']);
 
     const mainBody = document.querySelector('body');
@@ -53,5 +53,3 @@ async function run() {
     addTabs(finalData, '#tabs-widget-1 .tabs', '#tabs-widget-1 .tabs-content')
 
 }
-
-run()
