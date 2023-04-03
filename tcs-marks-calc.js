@@ -16,6 +16,17 @@ function compareOptions(correctOption, choosenOption) {
     }
 }
 
+function getQuestionId(row) {
+    const tables = row.querySelectorAll('table');
+    const ansTable = tables[1];
+    const ansRows = ansTable.querySelectorAll('tr');
+    const idRow = ansRows[0];
+
+    const id = idRow.querySelectorAll('td')[1].innerText;
+
+    return id;
+}
+
 function getOptions(row) {
     const tables = row.querySelectorAll('table');
     const quesTable = tables[0];
@@ -37,7 +48,7 @@ function calculateMarks(correct, incorrect, markingScheme) {
     return positiveNum - negativeNum
 }
 
-function findTotal(allSectionsAttempts, skipSectionName=null) {
+function findTotal(allSectionsAttempts, skipSectionName = null) {
     const total = {
         'Total Attempted': 0,
         'Correct Questions': 0,
@@ -98,7 +109,7 @@ function createFinalScoreBlock(finalScore) {
     return content
 }
 
-function getFinalTemplate(result) {
+function getScoreCardHTML(result) {
     let firstBlock = createFinalScoreBlock(result['Total']);
 
     let n = 0;
@@ -120,7 +131,7 @@ function addResultToPage(result, infoContainerSelector = ".main-info-pnl") {
     const pageBody = document.querySelector(infoContainerSelector);
     pageBody.innerHTML = '';
 
-    pageBody.innerHTML = getFinalTemplate(result)
+    pageBody.innerHTML = getScoreCardHTML(result)
 }
 
 function markQues(ques, category) {
@@ -142,14 +153,71 @@ function getCandidateInfo(candidateInfoBlock) {
         candidateInfo[data[0].innerText] = data[1].innerText;
     }
 
+    candidateInfo['answerSheetUrl'] = window.location.href;
+
     return candidateInfo
+}
+
+function deleteTicks(row) {
+    const ticks = row.querySelectorAll('.tick');
+
+    for (let tick of ticks) {
+        tick.remove();
+    }
+}
+
+function getQuestionDetails(quesRow) {
+    let allRows = quesRow.querySelectorAll('tr');
+    let quesDetails = {
+        'questionId': '',
+        'question': '',
+        'correctOption': '',
+        'otherOptions': []
+    }
+
+    quesDetails['questionId'] = getQuestionId(quesRow);
+
+    let n = 0;
+    for (let row of allRows) {
+        if (row.innerHTML == '') continue;
+        n += 1;
+
+        if (n == 1) {
+            const question = row.querySelectorAll('td')[1].innerHTML;
+            quesDetails['question'] = question;
+            break;
+        }
+    }
+
+    const correct = quesRow.querySelector('.rightAns');
+    let cText = correct.innerHTML;
+    cText = cText.replace(/(\d*)([^\w]*)/, '');
+    quesDetails['correctOption'] = cText;
+
+    const others = quesRow.querySelectorAll('.wrngAns');
+
+    for (let other of others) {
+        let wText = other.innerHTML;
+        wText = wText.replace(/(\d*)([^\w]*)/, '');
+        quesDetails['otherOptions'].push(wText);
+    }
+
+    return quesDetails;
+}
+
+function getAnswerKeyHtml(page, ansKeySelector) {
+    const answerKeyBlock = page.querySelector(ansKeySelector);
+    
+    return answerKeyBlock
 }
 
 function main(page, sectionSelector, sectionNameSelector, mainRowSelector, markingScheme, examStage) {
     const allSections = page.querySelectorAll(sectionSelector);
     const allSectionsNames = [];
-    const subjectwiseResult = {}
-    const candata = getCandidateInfo(page.querySelector('.main-info-pnl'))
+    const subjectwiseResult = {};
+    const questionPaper = {};
+    const candata = getCandidateInfo(page.querySelector('.main-info-pnl'));
+    const answerKeyHTML = getAnswerKeyHtml(page, '.grp-cntnr').outerHTML;
 
     for (let section of allSections) {
         const allQuesRows = section.querySelectorAll(mainRowSelector);
@@ -158,11 +226,16 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
 
         let correct = 0,
             incorrect = 0,
-            notAttempted = 0;
+            notAttempted = 0,
+            sectionData = [];
 
         for (let quesRow of allQuesRows) {
             let rightOption, choosenOption;
             [rightOption, choosenOption] = getOptions(quesRow);
+
+            deleteTicks(quesRow);
+            let questionData = getQuestionDetails(quesRow);
+            sectionData.push(questionData);
 
             if (choosenOption == '-') {
                 notAttempted += 1
@@ -179,6 +252,8 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
             }
         }
 
+        questionPaper[sectionName] = sectionData;
+
         let marks = calculateMarks(correct, incorrect, markingScheme[examStage])
 
         const response = {
@@ -189,7 +264,7 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
             'Out of': (correct + incorrect + notAttempted) * markingScheme[examStage]['correct']
         }
 
-        subjectwiseResult[sectionName] = response
+        subjectwiseResult[sectionName] = response;
     }
     let skipSectionName = '';
     if (examStage == 'tier2') {
@@ -197,9 +272,20 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
     }
     subjectwiseResult['Total'] = findTotal(subjectwiseResult, skipSectionName);
 
-    return [candata, subjectwiseResult]
-}
+    const allInfo = {
+        'candidateInfo': candata,
+        'scoreCard': subjectwiseResult,
+        'answerKeyDict': questionPaper
+    }
 
+    const allInfoHTML = {
+        'candidateInfo': '',
+        'scoreCard': getScoreCardHTML(subjectwiseResult),
+        'answerKeyHtml': answerKeyHTML
+    }
+
+    return allInfo;
+}
 
 // Execution
 
@@ -217,6 +303,6 @@ const markingScheme = {
 }
 
 const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, 'tier2');
-console.table(result[1]);
+console.table(result['scoreCard']);
 
-addResultToPage(result[1])
+addResultToPage(result['scoreCard'])
