@@ -205,7 +205,7 @@ function getQuestionDetails(quesRow) {
 
     for (let other of others) {
         let wText = other.innerHTML;
-        wText = wText.replace(/(\d*)([^\w]*)/, '');
+        wText = wText.replace(/(\d*)([^\w])(\s)/, '');
         quesDetails['otherOptions'].push(wText);
     }
 
