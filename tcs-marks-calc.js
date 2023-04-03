@@ -214,6 +214,9 @@ function getQuestionDetails(quesRow) {
 
 function getAnswerKeyHtml(page, ansKeySelector) {
     const answerKeyBlock = page.querySelector(ansKeySelector);
+    answerKeyBlock.style.margin = '0';
+    answerKeyBlock.style.padding = '0';
+    answerKeyBlock.style.background = 'transparent';
     
     return answerKeyBlock
 }
