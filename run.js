@@ -39,8 +39,8 @@ addScripts(scripts);
 const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, 'tier1');
 console.table(result['scoreCard']);
 
-const body = document.querySelector('body');
-body.innerHTML = initialTabBlock().outerHTML;
+const mainBody = document.querySelector('body');
+mainBody.innerHTML = initialTabBlock().outerHTML;
 
 const finalData = {
     'Candidate Info': result['candidateInfo'],
