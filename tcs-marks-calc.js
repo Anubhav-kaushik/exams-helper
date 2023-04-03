@@ -224,7 +224,7 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
     const subjectwiseResult = {};
     const questionPaper = {};
     const candata = getCandidateInfo(page.querySelector('.main-info-pnl'));
-    const answerKeyHTML = getAnswerKeyHtml(page, '.grp-cntnr').outerHTML;
+    const answerKeyHTML = getAnswerKeyHtml(page, '.grp-cntnr');
 
     for (let section of allSections) {
         const allQuesRows = section.querySelectorAll(mainRowSelector);
