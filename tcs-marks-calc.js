@@ -154,6 +154,8 @@ function getCandidateInfo(candidateInfoBlock) {
     }
 
     candidateInfo['answerSheetUrl'] = window.location.href;
+    const examName = candidateInfoBlock.querySelector('strong').innerText;
+    candidateInfo['Exam Name'] = examName;
 
     return candidateInfo
 }
@@ -275,7 +277,9 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
     const allInfo = {
         'candidateInfo': candata,
         'scoreCard': subjectwiseResult,
-        'answerKeyDict': questionPaper
+        'answerKeyDict': questionPaper,
+        'answerKeyHtml': answerKeyHTML,
+        'scoreCardHtml': getScoreCardHTML(subjectwiseResult)
     }
 
     const allInfoHTML = {
@@ -302,7 +306,7 @@ const markingScheme = {
     }
 }
 
-const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, 'tier2');
-console.table(result['scoreCard']);
+// const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, 'tier2');
+// console.table(result['scoreCard']);
 
-addResultToPage(result['scoreCard'])
+// addResultToPage(result['scoreCard'])
