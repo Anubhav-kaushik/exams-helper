@@ -150,7 +150,8 @@ function markQues(ques, category) {
 }
 
 function getCandidateInfo(candidateInfoBlock) {
-    const infoRows = candidateInfoBlock.querySelector('table').querySelectorAll('tr');
+    const candInfoTable = candidateInfoBlock.querySelector('table');
+    const infoRows = candInfoTable.querySelectorAll('tr');
     const candidateInfo = {}
 
     for (let row of infoRows) {
@@ -162,7 +163,7 @@ function getCandidateInfo(candidateInfoBlock) {
     const examName = candidateInfoBlock.querySelector('strong').innerText;
     candidateInfo['Exam Name'] = examName;
 
-    return candidateInfo
+    return [candidateInfo, candInfoTable]
 }
 
 function deleteTicks(row) {
@@ -227,6 +228,8 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
     const subjectwiseResult = {};
     const questionPaper = {};
     const candata = getCandidateInfo(page.querySelector('.main-info-pnl'));
+    const candataInfo = candata[0];
+    const candataHtml = candata[1];
     const answerKeyHTML = getAnswerKeyHtml(page, '.grp-cntnr');
 
     for (let section of allSections) {
@@ -283,17 +286,12 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
     subjectwiseResult['Total'] = findTotal(subjectwiseResult, skipSectionName);
 
     const allInfo = {
-        'candidateInfo': candata,
+        'candidateInfo': candataInfo,
+        'candidateInfoHtml': candataHtml,
         'scoreCard': subjectwiseResult,
         'answerKeyDict': questionPaper,
         'answerKeyHtml': answerKeyHTML,
         'scoreCardHtml': getScoreCardHTML(subjectwiseResult)
-    }
-
-    const allInfoHTML = {
-        'candidateInfo': '',
-        'scoreCard': getScoreCardHTML(subjectwiseResult),
-        'answerKeyHtml': answerKeyHTML
     }
 
     return allInfo;

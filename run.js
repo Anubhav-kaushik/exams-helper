@@ -45,7 +45,7 @@ function run(tier) {
     mainBody.innerHTML = initialTabBlock().outerHTML;
 
     const finalData = {
-        'Candidate Info': result['candidateInfo'],
+        'Candidate Info': result['candidateInfoHtml'],
         'Score Card': result['scoreCardHtml'],
         'Answer Key': result['answerKeyHtml'],
         'Quiz': createQuiz(result['answerKeyDict'], result['candidateInfo']['Exam Name'])
@@ -53,3 +53,9 @@ function run(tier) {
 
     addTabs(finalData, '.tabs-widget .tabs', '.tabs-widget .tabs-content')
 }
+
+
+// const thisbody = document.querySelector('body');
+// const sc = document.createElement('script');
+// sc.setAttribute('src', 'https://anubhav-kaushik.github.io/marksCalc/run.js');
+// thisbody.append(sc);
