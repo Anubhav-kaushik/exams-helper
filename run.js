@@ -42,6 +42,7 @@ async function startLoading(time) {
 
     const body = document.querySelector('body');
     body.appendChild(loadingScreen);
+    body.style.overflow = 'hidden';
 
     while (curTime < time) {
         let h, s, l;

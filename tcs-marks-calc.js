@@ -151,6 +151,7 @@ function markQues(ques, category) {
 
 function getCandidateInfo(candidateInfoBlock) {
     const candInfoTable = candidateInfoBlock.querySelector('table');
+    candInfoTable.classList.add('info-table');
     const infoRows = candInfoTable.querySelectorAll('tr');
     const candidateInfo = {}
 
