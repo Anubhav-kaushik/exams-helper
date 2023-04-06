@@ -84,8 +84,8 @@ async function run(tier) {
     mainBody.innerHTML = initialTabBlock().outerHTML;
 
     const finalData = {
-        'Candidate Info': result['candidateInfoHtml'],
         'Score Card': result['scoreCardHtml'],
+        'Candidate Info': result['candidateInfoHtml'],
         'Answer Key': result['answerKeyHtml'],
         'Quiz': createQuiz(result['answerKeyDict'], result['candidateInfo']['Exam Name'])
     }
