@@ -25,6 +25,37 @@ async function sleep(s) {
     return new Promise(resolve => setTimeout(resolve, s * 1000));
 }
 
+async function startLoading(time) {
+    const loadingScreen = document.createElement('div');
+    loadingScreen.style.width = '100%';
+    loadingScreen.style.height = '100%';
+    loadingScreen.style.position = 'absolute';
+    loadingScreen.style.top = '0';
+    loadingScreen.style.left = '0';
+    loadingScreen.style.zIndex = '1001';
+    loadingScreen.style.background = 'black';
+
+    let interval = 0.2,
+        curTime = 0;
+
+    loadingScreen.style.transition = `background ${interval}`;
+
+    const body = document.querySelector('body');
+    body.appendChild(loadingScreen);
+
+    while (curTime < time) {
+        let h, s, l;
+        h = Math.floor(Math.random() * 360);
+        s = Math.floor(Math.random() * 100);
+        l = Math.floor(Math.random() * 100);
+
+        loadingScreen.style.background = `hsl(${h}, ${s}%, ${l}%)`
+        await sleep(interval);
+
+        curTime += interval;
+    }
+}
+
 const scripts = [
     'https://anubhav-kaushik.github.io/tab-addons/widget-tab-type.js',
     'https://anubhav-kaushik.github.io/quiz-creator/js/action.js',
@@ -33,7 +64,6 @@ const scripts = [
 ];
 
 const styleSheets = [
-    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css',
     'https://anubhav-kaushik.github.io/tab-addons/widget-tab-type.css',
     'https://anubhav-kaushik.github.io/quiz-creator/css/quiz-style.css',
     'https://anubhav-kaushik.github.io/marksCalc/style.css',
@@ -43,6 +73,7 @@ addStyleSheets(styleSheets);
 addScripts(scripts);
 
 async function run(tier) {
+    startLoading(3)
     await sleep(3);
     const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, tier);
     console.table(result['scoreCard']);
