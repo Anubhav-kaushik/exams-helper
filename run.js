@@ -21,6 +21,10 @@ function addScripts(scripts) {
     }
 }
 
+async function sleep(s) {
+    return new Promise(resolve => setTimeout(resolve, s * 1000));
+}
+
 const scripts = [
     'https://anubhav-kaushik.github.io/tab-addons/widget-tab-type.js',
     'https://anubhav-kaushik.github.io/quiz-creator/js/action.js',
@@ -29,6 +33,7 @@ const scripts = [
 ];
 
 const styleSheets = [
+    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css',
     'https://anubhav-kaushik.github.io/tab-addons/widget-tab-type.css',
     'https://anubhav-kaushik.github.io/quiz-creator/css/quiz-style.css',
     'https://anubhav-kaushik.github.io/marksCalc/style.css',
@@ -37,7 +42,8 @@ const styleSheets = [
 addStyleSheets(styleSheets);
 addScripts(scripts);
 
-function run(tier) {
+async function run(tier) {
+    await sleep(3);
     const result = main(page, '.section-cntnr', '.section-lbl', '.rw', markingScheme, tier);
     console.table(result['scoreCard']);
 
@@ -59,3 +65,5 @@ function run(tier) {
 // const sc = document.createElement('script');
 // sc.setAttribute('src', 'https://anubhav-kaushik.github.io/marksCalc/run.js');
 // thisbody.append(sc);
+
+run('tier1')
