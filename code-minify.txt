@@ -1,0 +1,1 @@
+const tier="{{examStage}}",thisbody=document.querySelector("body"),sc=document.createElement("script");sc.setAttribute("src","https://anubhav-kaushik.github.io/marksCalc/run.js"),thisbody.append(sc);

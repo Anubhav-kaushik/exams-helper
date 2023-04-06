@@ -94,9 +94,10 @@ async function run(tier) {
 }
 
 
+// const tier = 'tier1'
 // const thisbody = document.querySelector('body');
 // const sc = document.createElement('script');
 // sc.setAttribute('src', 'https://anubhav-kaushik.github.io/marksCalc/run.js');
 // thisbody.append(sc);
 
-run('tier1')
+run(tier)

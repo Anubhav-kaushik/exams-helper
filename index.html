@@ -94,14 +94,17 @@
         }
 
         async function getCode() {
-            let codeGeneral = await getFile('code-general.txt');
-            let codeExec = await getFile('code-execution.txt');
+            // let codeGeneral = await getFile('code-general.txt');
+            // let codeExec = await getFile('code-execution.txt');
+
+            let codeMini = await getFile('code-minify.txt');
 
             const stage = document.querySelector('input[name="stage"][data-status="selected"]');
 
-            codeExec = codeExec.replace('{{examStage}}', stage.value);
+            codeMini = codeMini.replace('{{examStage}}', stage.value);
 
-            const code = codeGeneral + "\n" + codeExec;
+            // const code = codeGeneral + "\n" + codeExec;
+            const code = codeMini;
 
             const btn = document.querySelector('#codeBtn');
 
