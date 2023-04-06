@@ -35,10 +35,10 @@ async function startLoading(time) {
     loadingScreen.style.zIndex = '1001';
     loadingScreen.style.background = 'black';
 
-    let interval = 0.2,
+    let interval = 0.5,
         curTime = 0;
 
-    loadingScreen.style.transition = `background ${interval}`;
+    loadingScreen.style.transition = `background ${interval}s`;
 
     const body = document.querySelector('body');
     body.appendChild(loadingScreen);
