@@ -97,9 +97,13 @@ async function replaceImgSrcAll(page) {
     const images = page.querySelectorAll('img');
 
     for (let image of images) {
-        console.log('Absolute URL: ' + getAbsoluteImageSource(image))
-        let url = getAbsoluteImageSource(image);
-        url = await getImageDataUrl(url)
+        let url;
+        try {
+            url = await getImageDataUrl(url)
+        } catch (error) {
+            url = getAbsoluteImageSource(image);
+        }
+
         image.setAttribute('src', url);
     }
 }
