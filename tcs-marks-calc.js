@@ -1,3 +1,26 @@
+function downloadJson(data) {
+    // data: dictionary or list
+    
+    // Convert the JavaScript object to a JSON string
+    const jsonData = JSON.stringify(data, null, 2); // The third argument (2) adds indentation for better readability
+    
+    // Create a Blob from the JSON data
+    const blob = new Blob([jsonData], { type: 'application/json' });
+    
+    // Create a temporary link to download the file
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = 'output.json';
+    
+    // Programmatically click the link to trigger the download
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    
+    // Remove the temporary link
+    document.body.removeChild(downloadLink);
+    
+  }
+
 function removeUnwantedCharacters(text) {
     text = text.replace('.', '')
     text = text.replace(' ', '')
@@ -295,6 +318,8 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
         'scoreCardHtml': getScoreCardHTML(subjectwiseResult)
     }
 
+    downloadJson(allInfo['answerKeyDict'])
+    
     return allInfo;
 }
 
