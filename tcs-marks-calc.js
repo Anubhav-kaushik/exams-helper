@@ -21,35 +21,24 @@ function downloadJson(data) {
     
   }
 
-function getImageDataUrl(imageUrl, callback) {
-    // Create a new image element
-    const img = new Image();
-
-    // Set up an event listener to handle the image load
-    img.onload = () => {
-      // Create a canvas to draw the image
-      const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      // Get the canvas context
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
-
-      // Get the image data as a Base64 encoded string
-      const dataUrl = canvas.toDataURL();
-
-      // Call the callback function with the Data URL
-      callback(dataUrl);
-    };
-
-    // Set up an event listener to handle errors during image loading
-    img.onerror = () => {
-      callback(null, new Error('Failed to load the image.'));
-    };
-
-    img.src = imageUrl;
-  }
+function getImageDataUrl(url) {
+    return new Promise((resolve, reject) => {
+        if (!url) {
+          return reject();
+        }
+        const canvas = document.createElement('canvas')
+        const context = canvas.getContext('2d')
+        const image = new Image();
+        image.onload = () => {
+          canvas.width = image.width;
+          canvas.height = image.height;
+          context.drawImage(image, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL());
+        }
+        image.crossOrigin = "Anonymous";
+        image.src = url;
+      });    
+}
 
 function isImageElement(element) {
     // Convert tagName to lowercase to handle cases like 'IMG' or 'Img'
@@ -104,20 +93,13 @@ async function replaceImageSrcWithDataUrl() {
     }
 }
 
-function replaceImgSrcAll(page) {
+async function replaceImgSrcAll(page) {
     const images = page.querySelectorAll('img');
 
     for (let image of images) {
         console.log('Absolute URL: ' + getAbsoluteImageSource(image))
         let url = getAbsoluteImageSource(image);
-        getImageDataUrl(getAbsoluteImageSource(image), (dataUrl, error) => {
-            if (error) {
-                console.log('Error: ', error);
-            } else {
-                url = dataUrl;
-                console.log('DataURL: ' + url);
-            }
-        })
+        url = await getImageDataUrl(url)
         image.setAttribute('src', url);
     }
 }
