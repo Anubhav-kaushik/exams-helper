@@ -64,6 +64,20 @@ function getAbsoluteImageSource(imageElement) {
     return absoluteSrc;
 }
 
+function replaceImgSrcAll(page) {
+    const images = page.querySelectorAll('img');
+
+    for (let image of images) {
+        getImageDataUrl(getAbsoluteImageSource(image), (dataUrl, error) => {
+            if (error) {
+                console.log(error);
+            } else {
+                image.src = dataUrl;
+            }
+        })
+    }
+}
+
 function removeUnwantedCharacters(text) {
     text = text.replace('.', '')
     text = text.replace(' ', '')
@@ -259,16 +273,6 @@ function getQuestionDetails(quesRow) {
 
         if (n == 1) {
             const question = row.querySelectorAll('td')[1].innerHTML;
-            if (isImageElement(question)) {
-                const imageUrl = getAbsoluteImageSource(question);
-                getImageDataUrl(imageUrl, (dataUrl, error) => {
-                    if (error) {
-                    console.error('Error:', error);
-                    } else {
-                    question.src = dataUrl;
-                    }
-                });
-            }
             quesDetails['question'] = question;
             break;
         }
@@ -277,18 +281,6 @@ function getQuestionDetails(quesRow) {
     const correct = quesRow.querySelector('.rightAns');
     let cText = correct.innerHTML;
     cText = cText.replace(/(\d*)([^\w])(\s)/, '');
-
-    if (isImageElement(cText)) {
-        const imageUrl = getAbsoluteImageSource(cText);
-        getImageDataUrl(imageUrl, (dataUrl, error) => {
-            if (error) {
-                console.error('Error:', error);
-            } else {
-                cText.src = dataUrl;
-            }
-        });
-    }
-
     quesDetails['correctOption'] = cText;
 
     const others = quesRow.querySelectorAll('.wrngAns');
@@ -296,18 +288,6 @@ function getQuestionDetails(quesRow) {
     for (let other of others) {
         let wText = other.innerHTML;
         wText = wText.replace(/(\d*)([^\w])(\s)/, '');
-
-        if (isImageElement(wText)) {
-            const imageUrl = getAbsoluteImageSource(wText);
-            getImageDataUrl(imageUrl, (dataUrl, error) => {
-                if (error) {
-                    console.error('Error:', error);
-                } else {
-                    wText.src = dataUrl;
-                }
-            });
-        }
-
         quesDetails['otherOptions'].push(wText);
     }
 
@@ -324,6 +304,9 @@ function getAnswerKeyHtml(page, ansKeySelector) {
 }
 
 function main(page, sectionSelector, sectionNameSelector, mainRowSelector, markingScheme, examStage) {
+    
+    replaceImgSrcAll(page)
+
     const allSections = page.querySelectorAll(sectionSelector);
     const allSectionsNames = [];
     const subjectwiseResult = {};
