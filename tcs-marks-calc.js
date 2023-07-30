@@ -73,6 +73,7 @@ function replaceImgSrcAll(page) {
                 console.log(error);
             } else {
                 image.src = dataUrl;
+                console.log(image.src);
             }
         })
     }
@@ -304,7 +305,7 @@ function getAnswerKeyHtml(page, ansKeySelector) {
 }
 
 function main(page, sectionSelector, sectionNameSelector, mainRowSelector, markingScheme, examStage) {
-    
+
     replaceImgSrcAll(page)
 
     const allSections = page.querySelectorAll(sectionSelector);
