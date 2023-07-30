@@ -318,8 +318,9 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
         'scoreCardHtml': getScoreCardHTML(subjectwiseResult)
     }
 
-    downloadJson(allInfo['answerKeyDict'])
-    
+    // downloadJson(allInfo['answerKeyDict'])
+    // uncomment the above when find a way to save images with json file
+
     return allInfo;
 }
 
