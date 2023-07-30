@@ -21,6 +21,49 @@ function downloadJson(data) {
     
   }
 
+function getImageDataUrl(imageUrl, callback) {
+    // Create a new image element
+    const img = new Image();
+
+    // Set up an event listener to handle the image load
+    img.onload = () => {
+      // Create a canvas to draw the image
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      // Get the canvas context
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      // Get the image data as a Base64 encoded string
+      const dataUrl = canvas.toDataURL();
+
+      // Call the callback function with the Data URL
+      callback(dataUrl);
+    };
+
+    // Set up an event listener to handle errors during image loading
+    img.onerror = () => {
+      callback(null, new Error('Failed to load the image.'));
+    };
+  }
+
+function isImageElement(element) {
+    // Convert tagName to lowercase to handle cases like 'IMG' or 'Img'
+    return element.tagName.toLowerCase() === 'img';
+}
+
+function getAbsoluteImageSource(imageElement) {
+    // Use getAttribute to get the value of the src attribute
+    const src = imageElement.getAttribute('src');
+
+    // Use the URL constructor to convert relative URL to absolute URL
+    const absoluteSrc = new URL(src, window.location.href).href;
+
+    return absoluteSrc;
+}
+
 function removeUnwantedCharacters(text) {
     text = text.replace('.', '')
     text = text.replace(' ', '')
@@ -216,6 +259,16 @@ function getQuestionDetails(quesRow) {
 
         if (n == 1) {
             const question = row.querySelectorAll('td')[1].innerHTML;
+            if (isImageElement(question)) {
+                const imageUrl = getAbsoluteImageSource(question);
+                getImageDataUrl(imageUrl, (dataUrl, error) => {
+                    if (error) {
+                    console.error('Error:', error);
+                    } else {
+                    question.src = dataUrl;
+                    }
+                });
+            }
             quesDetails['question'] = question;
             break;
         }
@@ -224,6 +277,18 @@ function getQuestionDetails(quesRow) {
     const correct = quesRow.querySelector('.rightAns');
     let cText = correct.innerHTML;
     cText = cText.replace(/(\d*)([^\w])(\s)/, '');
+
+    if (isImageElement(cText)) {
+        const imageUrl = getAbsoluteImageSource(cText);
+        getImageDataUrl(imageUrl, (dataUrl, error) => {
+            if (error) {
+                console.error('Error:', error);
+            } else {
+                cText.src = dataUrl;
+            }
+        });
+    }
+
     quesDetails['correctOption'] = cText;
 
     const others = quesRow.querySelectorAll('.wrngAns');
@@ -231,6 +296,18 @@ function getQuestionDetails(quesRow) {
     for (let other of others) {
         let wText = other.innerHTML;
         wText = wText.replace(/(\d*)([^\w])(\s)/, '');
+
+        if (isImageElement(wText)) {
+            const imageUrl = getAbsoluteImageSource(wText);
+            getImageDataUrl(imageUrl, (dataUrl, error) => {
+                if (error) {
+                    console.error('Error:', error);
+                } else {
+                    wText.src = dataUrl;
+                }
+            });
+        }
+
         quesDetails['otherOptions'].push(wText);
     }
 
@@ -318,7 +395,7 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
         'scoreCardHtml': getScoreCardHTML(subjectwiseResult)
     }
 
-    // downloadJson(allInfo['answerKeyDict'])
+    downloadJson(allInfo['answerKeyDict'])
     // uncomment the above when find a way to save images with json file
 
     return allInfo;
