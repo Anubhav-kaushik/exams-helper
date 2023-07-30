@@ -349,8 +349,8 @@ function getAnswerKeyHtml(page, ansKeySelector) {
 
 function main(page, sectionSelector, sectionNameSelector, mainRowSelector, markingScheme, examStage) {
 
-    // replaceImgSrcAll(page)
-    replaceImageSrcWithDataUrl()
+    replaceImgSrcAll(page)
+    // replaceImageSrcWithDataUrl()
 
     const allSections = page.querySelectorAll(sectionSelector);
     const allSectionsNames = [];
