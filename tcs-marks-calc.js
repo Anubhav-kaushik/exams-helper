@@ -66,6 +66,44 @@ function getAbsoluteImageSource(imageElement) {
     return absoluteSrc;
 }
 
+async function getImageDataUrl(imageUrl) {
+    try {
+      const response = await fetch(imageUrl);
+      if (!response.ok) {
+        throw new Error('Failed to fetch the image.');
+      }
+
+      const blob = await response.blob();
+      const reader = new FileReader();
+
+      return new Promise((resolve) => {
+        reader.onloadend = () => {
+          resolve(reader.result);
+        };
+        reader.readAsDataURL(blob);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      return null;
+    }
+  }
+
+async function replaceImageSrcWithDataUrl() {
+    const images = document.getElementsByTagName('img');
+
+    for (const imageElement of images) {
+        try {
+        const imageUrl = imageElement.getAttribute('src');
+        const dataUrl = await getImageDataUrl(imageUrl);
+        if (dataUrl) {
+            imageElement.setAttribute('src', dataUrl);
+        }
+        } catch (error) {
+        console.error('Error:', error);
+        }
+    }
+}
+
 function replaceImgSrcAll(page) {
     const images = page.querySelectorAll('img');
 
@@ -311,7 +349,8 @@ function getAnswerKeyHtml(page, ansKeySelector) {
 
 function main(page, sectionSelector, sectionNameSelector, mainRowSelector, markingScheme, examStage) {
 
-    replaceImgSrcAll(page)
+    // replaceImgSrcAll(page)
+    replaceImageSrcWithDataUrl()
 
     const allSections = page.querySelectorAll(sectionSelector);
     const allSectionsNames = [];
