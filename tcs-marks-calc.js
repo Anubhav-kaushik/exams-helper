@@ -47,6 +47,8 @@ function getImageDataUrl(imageUrl, callback) {
     img.onerror = () => {
       callback(null, new Error('Failed to load the image.'));
     };
+
+
   }
 
 function isImageElement(element) {
@@ -68,14 +70,17 @@ function replaceImgSrcAll(page) {
     const images = page.querySelectorAll('img');
 
     for (let image of images) {
+        console.log('Absolute URL: ' + getAbsoluteImageSource(image))
+        let url = getAbsoluteImageSource(image);
         getImageDataUrl(getAbsoluteImageSource(image), (dataUrl, error) => {
             if (error) {
                 console.log(error);
             } else {
-                image.src = dataUrl;
-                console.log(image.src);
+                url = dataUrl;
+                console.log(url);
             }
         })
+        image.setAttribute('src', url);
     }
 }
 
