@@ -335,7 +335,7 @@ function getAnswerKeyHtml(page, ansKeySelector) {
 
 function main(page, sectionSelector, sectionNameSelector, mainRowSelector, markingScheme, examStage) {
 
-    replaceImgSrcAll(page)
+    // replaceImgSrcAll(page)
     // replaceImageSrcWithDataUrl()
 
     const allSections = page.querySelectorAll(sectionSelector);
@@ -409,7 +409,7 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
         'scoreCardHtml': getScoreCardHTML(subjectwiseResult)
     }
 
-    downloadJson(allInfo['answerKeyDict'])
+    // downloadJson(allInfo['answerKeyDict'])
     // uncomment the above when find a way to save images with json file
 
     return allInfo;
