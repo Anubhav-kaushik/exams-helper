@@ -108,6 +108,18 @@ async function replaceImgSrcAll(page) {
     }
 }
 
+function getAllImgUrls(page) {
+    const images = page.querySelectorAll('img');
+    const imagesUrls = []
+
+    for (const image of images) {
+        let url = getAbsoluteImageSource(image);
+        imagesUrls.push(url);
+    }
+
+    return imagesUrls;
+}
+
 function removeUnwantedCharacters(text) {
     text = text.replace('.', '')
     text = text.replace(' ', '')
@@ -338,6 +350,8 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
     // replaceImgSrcAll(page)
     // replaceImageSrcWithDataUrl()
 
+    const allImages = getAllImgUrls(page);
+
     const allSections = page.querySelectorAll(sectionSelector);
     const allSectionsNames = [];
     const subjectwiseResult = {};
@@ -406,10 +420,12 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
         'scoreCard': subjectwiseResult,
         'answerKeyDict': questionPaper,
         'answerKeyHtml': answerKeyHTML,
-        'scoreCardHtml': getScoreCardHTML(subjectwiseResult)
+        'scoreCardHtml': getScoreCardHTML(subjectwiseResult),
+        'imagesLink': allImages,
     }
 
-    // downloadJson(allInfo['answerKeyDict'])
+    downloadJson(allInfo['answerKeyDict'])
+    downloadJson(allInfo['imagesLink'])
     // uncomment the above when find a way to save images with json file
 
     return allInfo;
