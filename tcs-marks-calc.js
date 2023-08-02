@@ -424,8 +424,8 @@ function main(page, sectionSelector, sectionNameSelector, mainRowSelector, marki
         'imagesLink': allImages,
     }
 
-    downloadJson(allInfo['answerKeyDict'], 'question paper')
-    downloadJson(allInfo['imagesLink'], 'images link')
+    // downloadJson(allInfo['answerKeyDict'], 'question paper')
+    // downloadJson(allInfo['imagesLink'], 'images link')
     // uncomment the above when find a way to save images with json file
 
     return allInfo;
