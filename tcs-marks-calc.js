@@ -298,7 +298,7 @@ function deleteTicks(row) {
 }
 
 function getQuestionDetails(quesRow) {
-    let allRows = quesRow.querySelectorAll('tr');
+    let allQuesRows = quesRow.querySelectorAll('.questionRowTbl');
     let quesDetails = {
         'questionId': '',
         'question': '',
@@ -311,7 +311,7 @@ function getQuestionDetails(quesRow) {
     let question = '';
 
     // let n = 0;
-    for (let row of allRows) {
+    for (let row of allQuesRows) {
         if (row.innerHTML == '') continue;
 
         const rowData = row.querySelectorAll('td');
