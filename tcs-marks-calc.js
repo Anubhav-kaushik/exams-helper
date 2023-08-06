@@ -308,17 +308,30 @@ function getQuestionDetails(quesRow) {
 
     quesDetails['questionId'] = getQuestionId(quesRow);
 
-    let n = 0;
+    let question = '';
+
+    // let n = 0;
     for (let row of allRows) {
         if (row.innerHTML == '') continue;
-        n += 1;
 
-        if (n == 1) {
-            const question = row.querySelectorAll('td')[1].innerHTML;
-            quesDetails['question'] = question;
-            break;
+        const rowData = row.querySelectorAll('td');
+        for (let data of rowData) {
+            if (data.innerHTML == '') continue;
+            else if (data.innerText.contains('Q.') || data.innerText.contains('SubQuestion No')) continue;
+            else if (data.innerText.contains('Ans') || data.classList.contains('rightAns') || data.classList.contains('wrngAns')) break;
+
+            question = question + data.innerHTML + '<br/>';
         }
+        // n += 1;
+
+        // if (n == 1) {
+        //     const question = row.querySelectorAll('td')[1].innerHTML;
+        //     quesDetails['question'] = question;
+        //     break;
+        // }
     }
+
+    quesDetails['question'] = question;
 
     const correct = quesRow.querySelector('.rightAns');
     let cText = correct.innerHTML;
