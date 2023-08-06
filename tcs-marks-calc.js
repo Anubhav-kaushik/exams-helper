@@ -318,7 +318,7 @@ function getQuestionDetails(quesRow) {
         for (let data of rowData) {
             if (data.innerHTML == '') continue;
             else if (data.innerText.includes('Q.') || data.innerText.includes('SubQuestion No')) continue;
-            else if (data.innerText.includes('Ans') || data.classList.includes('rightAns') || data.classList.includes('wrngAns')) break;
+            else if (data.innerText.includes('Ans') || data.classList.contains('rightAns') || data.classList.contains('wrngAns')) break;
 
             question = question + data.innerHTML + '<br/>';
         }
